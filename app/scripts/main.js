@@ -6,7 +6,8 @@
     root.require([
 		'backbone',
 		'application',
-		'regionManager'
+		'regionManager',
+		'authenticationManager'
 	],
 	function ( Backbone, App ) {
 		App.start();

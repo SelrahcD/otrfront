@@ -5,22 +5,26 @@
 
 	root.define([
 		'backbone',
-		'communicator',
-		'hbs!tmpl/welcome'
+		'communicator'
 	],
 
-	function( Backbone, Communicator, Welcome_tmpl ) {
-		var welcomeTmpl = Welcome_tmpl;
+	function( Backbone, Communicator) {
 
 		var App = new Backbone.Marionette.Application();
 
 		/* Add application regions here */
-		App.addRegions({});
+		App.addRegions({
+			mainRegion: '#content'
+		});
 
 		/* Add initializers here */
 		App.addInitializer( function () {
-			document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
+
 			Communicator.mediator.trigger("APP:START");
+		});
+
+		Communicator.command.setHandler("setView", function(view){
+			App.mainRegion.show(view);
 		});
 
 		return App;
