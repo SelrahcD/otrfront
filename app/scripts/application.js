@@ -23,7 +23,8 @@
 			Communicator.mediator.trigger("APP:START");
 		});
 
-		Communicator.command.setHandler("setView", function(view){
+		// Allow modules to set set the current view
+		Communicator.command.setHandler("APP:setView", function(view){
 			App.mainRegion.show(view);
 		});
 

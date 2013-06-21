@@ -10,14 +10,12 @@
 	function( Backbone, Communicator ) {
 
 		var LoginView = Backbone.Marionette.ItemView.extend({
-			template: '#loginForm',
-
-			initialize: function() {
-				console.log('Initialize new LoginView');
-			}
+			template: '#loginForm'
 		});
 
 		var AuthenticationManager = Backbone.Marionette.Controller.extend({
+
+			user: null,
 
 			token: null,
 
@@ -34,8 +32,7 @@
 
 				// If we still don't have a token print login form
 				if(this.token === null) {
-					var loginView = new LoginView();
-					Communicator.command.execute("setView", loginView);
+					this.printLoginForm();	
 				}
 			},
 
@@ -49,10 +46,27 @@
 				return null;
 			},
 
+			authenticate: function() {
+				console.log('Use form data to authenticate');
+			},
+
 			isSessionValid: function() {
 				return false;
-			}
+			},
 
+			printLoginForm: function() {
+				var loginView = new LoginView();
+				Communicator.command.execute("APP:setView", loginView);
+			},
+
+			getUserDataFromApi: function() {
+				console.log("Fetching user data from the api");
+				return null;
+			},
+
+			getUser: function() {
+				return this.user;
+			}
 
 		});
 
