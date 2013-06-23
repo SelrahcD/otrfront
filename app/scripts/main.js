@@ -7,7 +7,7 @@
 		'backbone',
 		'application',
 		'regionManager',
-		'authenticationManager'
+		'authManager'
 	],
 	function ( Backbone, App ) {
 		App.start();
