@@ -21,10 +21,9 @@
 			  data: { email: email, password: password },
 			  success: function(data) {
 			  	tokenData = new TokenData(data);
-			  	refreshToken(tokenData);
 			  },
 			  error: function() {
-			  	console.log('Error');
+			  	console.log('Unable to log in.');
 			  }
 			});
 		}
@@ -46,23 +45,14 @@
 					xhr.setRequestHeader("Authorization", "Basic " + btoa(tokenData.get('token') + ":x"));
 				},
 				success: function(data) {
-					console.log('success');
-					console.log(data);
 					tokenData = new TokenData(data);
 				},
 				error: function(jqXHR, textStatus, error) {
-					console.log(error);
-					console.log('Error');
+					console.log('Unable to refresh token');
 				}
 			});
 
 			return null;
-		}
-
-		var make_base_auth = function(user) {
-		  var tok = user + ':x';
-		  var hash = btoa(tok);
-		  return "Basic " + hash;
 		}
 
 		var isSessionValid = function() {
