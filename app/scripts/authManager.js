@@ -13,7 +13,7 @@
 
 		// Functions
 
-		var authenticate = function(email, password) {
+		var authenticate = function(email, password, success, error) {
 
 			$.ajax({
 			  type: 'POST',
@@ -21,9 +21,11 @@
 			  data: { email: email, password: password },
 			  success: function(data) {
 			  	tokenData = new TokenData(data);
+			  	success();
 			  },
 			  error: function() {
 			  	console.log('Unable to log in.');
+			  	error();
 			  }
 			});
 		}
@@ -74,7 +76,7 @@
 			defaults: { 
 				token: '',
 				refresh_token: '',
-				expiration: 9
+				expiration: 0
 			}
 		});
 
@@ -90,7 +92,23 @@
 			connectionAttempt: function(e) {
 				e.preventDefault();
 
-				authenticate(this.$('input[name=email]').val(), this.$('input[name=password]').val());
+				var alertContainer = this.$('#alerts-container');
+
+				authenticate(
+					this.$('input[name=email]').val(),
+					this.$('input[name=password]').val(),
+					function() {
+						console.log('Authenticated');
+						Communicator.mediator.trigger('Auth:Authenticated');
+					},
+					function() {
+						console.log('Failed');
+						var alert = '<div data-alert class="alert-box alert">';
+							alert += 'We were unable to log you in.';
+							alert += '</div>';
+
+						alertContainer.append(alert);
+					});
 			}
 		});
 
