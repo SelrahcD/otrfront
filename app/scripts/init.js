@@ -30,6 +30,7 @@
         },
 
         paths: {
+            module: '../modules',
             jquery: '../bower_components/jquery/jquery',
             backbone: '../bower_components/backbone-amd/backbone',
             underscore: '../bower_components/underscore-amd/underscore',
