@@ -5,9 +5,10 @@
 
 	root.define([
 		'backbone',
-		'communicator'
+		'communicator',
+		'text!./templates/loginForm.html'
 	],
-	function( Backbone, Communicator ) {
+	function( Backbone, Communicator, loginFormTemplate ) {
 
 		var tokenData = null;
 
@@ -83,7 +84,7 @@
 		// View
 
 		var LoginView = Backbone.Marionette.ItemView.extend({
-			template: '#login_form--template',
+			template: loginFormTemplate,
 
 			events: {
 			  'submit #login_form': 'connectionAttempt'
